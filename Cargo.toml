@@ -17,3 +17,9 @@ path = "src/lib.rs"
 [[bin]]
 name = "main"
 path = "src/main.rs"
+
+[workspace]
+members = [
+    ".",
+    "demo"
+]
