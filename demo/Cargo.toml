@@ -1,5 +1,5 @@
 [package]
-name = "counter"
+name = "diagv"
 version = "0.1.0"
 edition = "2021"
 
@@ -13,3 +13,4 @@ leptos = { version = "0.7.7", features = ["csr"] }
 console_log = "1.0"
 log = "0.4.22"
 console_error_panic_hook = "0.1.7"
+diagvrs = {path = "../"}

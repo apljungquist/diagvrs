@@ -1,15 +1,16 @@
+use dot_parser::{ast, canonical};
+use itertools::Itertools;
 use std::collections::{HashMap, HashSet};
+use std::convert::TryFrom;
 use std::fmt::{Debug, Display};
 use std::hash::Hash;
 use std::iter::FromIterator;
-
-use itertools::Itertools;
 
 type NormNode = usize;
 type NormTree = HashMap<NormNode, Vec<NormNode>>;
 
 macro_rules! map (
-    { $($key:expr => $value:expr),+ } => {
+    { $($key:expr => $value:expr),+ $(,)? } => {
         {
             let mut result = HashMap::new();
             $(
@@ -468,4 +469,58 @@ pub fn formatted<T: Eq + Hash + Display + Debug>(
         }
     }
     result
+}
+
+pub enum Order {
+    Depth,
+    Alphabetical,
+    ReverseAlphabetical,
+    Dependencies,
+}
+pub fn demo(dot: &str, strategy: Order) -> String {
+    let graph = canonical::Graph::from(ast::Graph::try_from(dot).unwrap());
+
+    let mut order: Vec<String> = Vec::new();
+    let mut tree: HashMap<String, Vec<String>> = HashMap::new();
+    for edge in graph.edges.set {
+        let from = edge.from.trim_matches('"').to_string();
+        let to = edge.to.trim_matches('"').to_string();
+        if !order.contains(&to) {
+            order.push(to.clone());
+        }
+        if !order.contains(&from) {
+            order.push(from.clone());
+        }
+        tree.entry(to).or_default().push(from);
+    }
+
+    for k in &order {
+        tree.entry(k.clone()).or_default();
+    }
+
+    let mut inv_tree: HashMap<String, Vec<String>> = HashMap::new();
+    for (k, vs) in tree.iter() {
+        inv_tree.entry(k.clone()).or_default();
+        for v in vs {
+            let entry = inv_tree.entry(v.clone()).or_default();
+            if !entry.contains(&k) {
+                entry.push(k.clone());
+            }
+        }
+    }
+
+    match strategy {
+        Order::Dependencies => {
+            order.sort_by_key(|k| inv_tree[k].len());
+        }
+        Order::Depth => {
+            order.sort_by_key(|k| std::cmp::Reverse(k.chars().filter(|c| *c == ':').count()));
+        }
+        Order::Alphabetical => order.sort(),
+        Order::ReverseAlphabetical => {
+            order.sort_by_key(|k| std::cmp::Reverse(k.to_string()));
+        }
+    }
+
+    crate::formatted(&tree, &order)
 }

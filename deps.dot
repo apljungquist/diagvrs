@@ -1,0 +1,156 @@
+digraph {
+
+    graph [
+        label="lms",
+        labelloc=t,
+
+        pad=0.4,
+
+        // Consider rendering the graph using a different layout algorithm, such as:
+        // [dot, neato, twopi, circo, fdp, sfdp]
+        layout=neato,
+        overlap=false,
+        splines="line",
+        rankdir=LR,
+
+        fontname="Helvetica", 
+        fontsize="36",
+    ];
+
+    node [
+        fontname="monospace",
+        fontsize="10",
+        shape="record",
+        style="filled",
+    ];
+
+    edge [
+        fontname="monospace",
+        fontsize="10",
+    ];
+
+    "lms" [label="crate|lms", fillcolor="#5397c8"]; // "crate" node
+    "a::la" [label="pub mod|a::la", fillcolor="#81c169"]; // "mod" node
+    "a::la::m" [label="pub mod|a::la::m", fillcolor="#81c169"]; // "mod" node
+    "a::la::q" [label="pub mod|a::la::q", fillcolor="#81c169"]; // "mod" node
+    "a::r" [label="pub mod|a::r", fillcolor="#81c169"]; // "mod" node
+    "a::r::m" [label="pub mod|a::r::m", fillcolor="#81c169"]; // "mod" node
+    "a::r::q" [label="pub mod|a::r::q", fillcolor="#81c169"]; // "mod" node
+    "a::s" [label="pub mod|a::s", fillcolor="#81c169"]; // "mod" node
+    "a::s::m" [label="pub mod|a::s::m", fillcolor="#81c169"]; // "mod" node
+    "a::s::q" [label="pub mod|a::s::q", fillcolor="#81c169"]; // "mod" node
+    "a::ula" [label="pub mod|a::ula", fillcolor="#81c169"]; // "mod" node
+    "a::ula::m" [label="pub mod|a::ula::m", fillcolor="#81c169"]; // "mod" node
+    "a::ula::q" [label="pub mod|a::ula::q", fillcolor="#81c169"]; // "mod" node
+    "a::ula::h" [label="pub(self) mod|a::ula::h", fillcolor="#db5367"]; // "mod" node
+    "a::ur" [label="pub mod|a::ur", fillcolor="#81c169"]; // "mod" node
+    "a::ur::m" [label="pub mod|a::ur::m", fillcolor="#81c169"]; // "mod" node
+    "a::ur::q" [label="pub mod|a::ur::q", fillcolor="#81c169"]; // "mod" node
+    "a::us" [label="pub mod|a::us", fillcolor="#81c169"]; // "mod" node
+    "a::us::m" [label="pub mod|a::us::m", fillcolor="#81c169"]; // "mod" node
+    "a::us::q" [label="pub mod|a::us::q", fillcolor="#81c169"]; // "mod" node
+    "g::la::m" [label="pub mod|g::la::m", fillcolor="#81c169"]; // "mod" node
+    "g::la::q" [label="pub mod|g::la::q", fillcolor="#81c169"]; // "mod" node
+    "g::la::t" [label="pub mod|g::la::t", fillcolor="#81c169"]; // "mod" node
+    "g::m" [label="pub mod|g::m", fillcolor="#81c169"]; // "mod" node
+    "g::q" [label="pub mod|g::q", fillcolor="#81c169"]; // "mod" node
+    "g::r::m" [label="pub mod|g::r::m", fillcolor="#81c169"]; // "mod" node
+    "g::r::q" [label="pub mod|g::r::q", fillcolor="#81c169"]; // "mod" node
+    "g::r::t" [label="pub mod|g::r::t", fillcolor="#81c169"]; // "mod" node
+    "g::s::c" [label="pub mod|g::s::c", fillcolor="#81c169"]; // "mod" node
+    "g::s::m" [label="pub mod|g::s::m", fillcolor="#81c169"]; // "mod" node
+    "g::s::q" [label="pub mod|g::s::q", fillcolor="#81c169"]; // "mod" node
+    "g::s::t" [label="pub mod|g::s::t", fillcolor="#81c169"]; // "mod" node
+    "g::ula::m" [label="pub mod|g::ula::m", fillcolor="#81c169"]; // "mod" node
+    "g::ula::q" [label="pub mod|g::ula::q", fillcolor="#81c169"]; // "mod" node
+    "g::ula::t" [label="pub mod|g::ula::t", fillcolor="#81c169"]; // "mod" node
+    "g::ur::m" [label="pub mod|g::ur::m", fillcolor="#81c169"]; // "mod" node
+    "g::ur::q" [label="pub mod|g::ur::q", fillcolor="#81c169"]; // "mod" node
+    "g::ur::t" [label="pub mod|g::ur::t", fillcolor="#81c169"]; // "mod" node
+    "g::us::m" [label="pub mod|g::us::m", fillcolor="#81c169"]; // "mod" node
+    "g::us::q" [label="pub mod|g::us::q", fillcolor="#81c169"]; // "mod" node
+    "g::us::t" [label="pub mod|g::us::t", fillcolor="#81c169"]; // "mod" node
+
+    "lms" -> "g::m" [label="uses", color="#7f7f7f", style="dashed"] [constraint=false]; // "uses" edge
+    "lms" -> "g::q" [label="uses", color="#7f7f7f", style="dashed"] [constraint=false]; // "uses" edge
+    "a::la::m" -> "a::la" [label="uses", color="#7f7f7f", style="dashed"] [constraint=false]; // "uses" edge
+    "a::la::q" -> "a::la" [label="uses", color="#7f7f7f", style="dashed"] [constraint=false]; // "uses" edge
+    "a::la::q" -> "g::s::c" [label="uses", color="#7f7f7f", style="dashed"] [constraint=false]; // "uses" edge
+    "a::r::m" -> "a::r" [label="uses", color="#7f7f7f", style="dashed"] [constraint=false]; // "uses" edge
+    "a::r::q" -> "a::r" [label="uses", color="#7f7f7f", style="dashed"] [constraint=false]; // "uses" edge
+    "a::r::q" -> "g::s::c" [label="uses", color="#7f7f7f", style="dashed"] [constraint=false]; // "uses" edge
+    "a::s::m" -> "a::s" [label="uses", color="#7f7f7f", style="dashed"] [constraint=false]; // "uses" edge
+    "a::s::q" -> "a::s" [label="uses", color="#7f7f7f", style="dashed"] [constraint=false]; // "uses" edge
+    "a::s::q" -> "g::s::c" [label="uses", color="#7f7f7f", style="dashed"] [constraint=false]; // "uses" edge
+    "a::ula::m" -> "a::ula" [label="uses", color="#7f7f7f", style="dashed"] [constraint=false]; // "uses" edge
+    "a::ula::m" -> "a::ula::h" [label="uses", color="#7f7f7f", style="dashed"] [constraint=false]; // "uses" edge
+    "a::ula::q" -> "a::ula" [label="uses", color="#7f7f7f", style="dashed"] [constraint=false]; // "uses" edge
+    "a::ula::q" -> "a::ula::h" [label="uses", color="#7f7f7f", style="dashed"] [constraint=false]; // "uses" edge
+    "a::ula::q" -> "g::ula::t" [label="uses", color="#7f7f7f", style="dashed"] [constraint=false]; // "uses" edge
+    "a::ur::m" -> "a::ur" [label="uses", color="#7f7f7f", style="dashed"] [constraint=false]; // "uses" edge
+    "a::ur::q" -> "a::ur" [label="uses", color="#7f7f7f", style="dashed"] [constraint=false]; // "uses" edge
+    "a::ur::q" -> "g::s::c" [label="uses", color="#7f7f7f", style="dashed"] [constraint=false]; // "uses" edge
+    "a::us::m" -> "a::us" [label="uses", color="#7f7f7f", style="dashed"] [constraint=false]; // "uses" edge
+    "a::us::q" -> "a::us" [label="uses", color="#7f7f7f", style="dashed"] [constraint=false]; // "uses" edge
+    "a::us::q" -> "g::s::c" [label="uses", color="#7f7f7f", style="dashed"] [constraint=false]; // "uses" edge
+    "g::la::m" -> "a::la::m" [label="uses", color="#7f7f7f", style="dashed"] [constraint=false]; // "uses" edge
+    "g::la::m" -> "g::la::t" [label="uses", color="#7f7f7f", style="dashed"] [constraint=false]; // "uses" edge
+    "g::la::q" -> "a::la::q" [label="uses", color="#7f7f7f", style="dashed"] [constraint=false]; // "uses" edge
+    "g::la::q" -> "g::la::t" [label="uses", color="#7f7f7f", style="dashed"] [constraint=false]; // "uses" edge
+    "g::la::q" -> "g::s::c" [label="uses", color="#7f7f7f", style="dashed"] [constraint=false]; // "uses" edge
+    "g::la::t" -> "a::la" [label="uses", color="#7f7f7f", style="dashed"] [constraint=false]; // "uses" edge
+    "g::m" -> "g::la::m" [label="uses", color="#7f7f7f", style="dashed"] [constraint=false]; // "uses" edge
+    "g::m" -> "g::r::m" [label="uses", color="#7f7f7f", style="dashed"] [constraint=false]; // "uses" edge
+    "g::m" -> "g::s::m" [label="uses", color="#7f7f7f", style="dashed"] [constraint=false]; // "uses" edge
+    "g::m" -> "g::ula::m" [label="uses", color="#7f7f7f", style="dashed"] [constraint=false]; // "uses" edge
+    "g::m" -> "g::ur::m" [label="uses", color="#7f7f7f", style="dashed"] [constraint=false]; // "uses" edge
+    "g::m" -> "g::us::m" [label="uses", color="#7f7f7f", style="dashed"] [constraint=false]; // "uses" edge
+    "g::q" -> "g::la::q" [label="uses", color="#7f7f7f", style="dashed"] [constraint=false]; // "uses" edge
+    "g::q" -> "g::r::q" [label="uses", color="#7f7f7f", style="dashed"] [constraint=false]; // "uses" edge
+    "g::q" -> "g::s::q" [label="uses", color="#7f7f7f", style="dashed"] [constraint=false]; // "uses" edge
+    "g::q" -> "g::ula::q" [label="uses", color="#7f7f7f", style="dashed"] [constraint=false]; // "uses" edge
+    "g::q" -> "g::ur::q" [label="uses", color="#7f7f7f", style="dashed"] [constraint=false]; // "uses" edge
+    "g::q" -> "g::us::q" [label="uses", color="#7f7f7f", style="dashed"] [constraint=false]; // "uses" edge
+    "g::r::m" -> "a::r::m" [label="uses", color="#7f7f7f", style="dashed"] [constraint=false]; // "uses" edge
+    "g::r::m" -> "g::r::t" [label="uses", color="#7f7f7f", style="dashed"] [constraint=false]; // "uses" edge
+    "g::r::q" -> "a::r::q" [label="uses", color="#7f7f7f", style="dashed"] [constraint=false]; // "uses" edge
+    "g::r::q" -> "g::r::t" [label="uses", color="#7f7f7f", style="dashed"] [constraint=false]; // "uses" edge
+    "g::r::q" -> "g::s::c" [label="uses", color="#7f7f7f", style="dashed"] [constraint=false]; // "uses" edge
+    "g::r::t" -> "a::r" [label="uses", color="#7f7f7f", style="dashed"] [constraint=false]; // "uses" edge
+    "g::s::m" -> "a::s::m" [label="uses", color="#7f7f7f", style="dashed"] [constraint=false]; // "uses" edge
+    "g::s::m" -> "g::s::t" [label="uses", color="#7f7f7f", style="dashed"] [constraint=false]; // "uses" edge
+    "g::s::q" -> "a::s::q" [label="uses", color="#7f7f7f", style="dashed"] [constraint=false]; // "uses" edge
+    "g::s::q" -> "g::s::c" [label="uses", color="#7f7f7f", style="dashed"] [constraint=false]; // "uses" edge
+    "g::s::q" -> "g::s::t" [label="uses", color="#7f7f7f", style="dashed"] [constraint=false]; // "uses" edge
+    "g::s::t" -> "a::s" [label="uses", color="#7f7f7f", style="dashed"] [constraint=false]; // "uses" edge
+    "g::ula::m" -> "a::ula::m" [label="uses", color="#7f7f7f", style="dashed"] [constraint=false]; // "uses" edge
+    "g::ula::m" -> "g::ula::t" [label="uses", color="#7f7f7f", style="dashed"] [constraint=false]; // "uses" edge
+    "g::ula::q" -> "a::ula::q" [label="uses", color="#7f7f7f", style="dashed"] [constraint=false]; // "uses" edge
+    "g::ula::q" -> "g::ula::t" [label="uses", color="#7f7f7f", style="dashed"] [constraint=false]; // "uses" edge
+    "g::ula::t" -> "a::ula" [label="uses", color="#7f7f7f", style="dashed"] [constraint=false]; // "uses" edge
+    "g::ur::m" -> "a::ur::m" [label="uses", color="#7f7f7f", style="dashed"] [constraint=false]; // "uses" edge
+    "g::ur::m" -> "g::ur::t" [label="uses", color="#7f7f7f", style="dashed"] [constraint=false]; // "uses" edge
+    "g::ur::q" -> "a::ula" [label="uses", color="#7f7f7f", style="dashed"] [constraint=false]; // "uses" edge
+    "g::ur::q" -> "a::ula::q" [label="uses", color="#7f7f7f", style="dashed"] [constraint=false]; // "uses" edge
+    "g::ur::q" -> "a::ur::q" [label="uses", color="#7f7f7f", style="dashed"] [constraint=false]; // "uses" edge
+    "g::ur::q" -> "a::us::q" [label="uses", color="#7f7f7f", style="dashed"] [constraint=false]; // "uses" edge
+    "g::ur::q" -> "g::s::c" [label="uses", color="#7f7f7f", style="dashed"] [constraint=false]; // "uses" edge
+    "g::ur::q" -> "g::ula::t" [label="uses", color="#7f7f7f", style="dashed"] [constraint=false]; // "uses" edge
+    "g::ur::q" -> "g::ur::t" [label="uses", color="#7f7f7f", style="dashed"] [constraint=false]; // "uses" edge
+    "g::ur::q" -> "g::us::q" [label="uses", color="#7f7f7f", style="dashed"] [constraint=false]; // "uses" edge
+    "g::ur::q" -> "g::us::t" [label="uses", color="#7f7f7f", style="dashed"] [constraint=false]; // "uses" edge
+    "g::ur::t" -> "a::ur" [label="uses", color="#7f7f7f", style="dashed"] [constraint=false]; // "uses" edge
+    "g::ur::t" -> "a::us" [label="uses", color="#7f7f7f", style="dashed"] [constraint=false]; // "uses" edge
+    "g::ur::t" -> "g::us::t" [label="uses", color="#7f7f7f", style="dashed"] [constraint=false]; // "uses" edge
+    "g::us::m" -> "a::us::m" [label="uses", color="#7f7f7f", style="dashed"] [constraint=false]; // "uses" edge
+    "g::us::m" -> "g::us::t" [label="uses", color="#7f7f7f", style="dashed"] [constraint=false]; // "uses" edge
+    "g::us::q" -> "a::ula" [label="uses", color="#7f7f7f", style="dashed"] [constraint=false]; // "uses" edge
+    "g::us::q" -> "a::ula::q" [label="uses", color="#7f7f7f", style="dashed"] [constraint=false]; // "uses" edge
+    "g::us::q" -> "a::us::q" [label="uses", color="#7f7f7f", style="dashed"] [constraint=false]; // "uses" edge
+    "g::us::q" -> "g::s::c" [label="uses", color="#7f7f7f", style="dashed"] [constraint=false]; // "uses" edge
+    "g::us::q" -> "g::ula::t" [label="uses", color="#7f7f7f", style="dashed"] [constraint=false]; // "uses" edge
+    "g::us::q" -> "g::us::t" [label="uses", color="#7f7f7f", style="dashed"] [constraint=false]; // "uses" edge
+    "g::us::t" -> "a::ula" [label="uses", color="#7f7f7f", style="dashed"] [constraint=false]; // "uses" edge
+    "g::us::t" -> "a::us" [label="uses", color="#7f7f7f", style="dashed"] [constraint=false]; // "uses" edge
+
+}
