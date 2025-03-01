@@ -28,7 +28,9 @@ fn Input(on_render: impl Fn(&str) + 'static) -> impl IntoView {
 fn Output(topology: String, on_edit: impl Fn() + 'static) -> impl IntoView {
     view! {
         <div style="display: flex; flex-direction: column; height: 100%;">
-            <code style="display:block; flex: 1; white-space: pre; overflow:scroll;">{render(&topology)}</code>
+            <code style="display:block; flex: 1; white-space: pre; overflow:scroll;">
+                {render(&topology)}
+            </code>
             <div style="padding: 0.5em; text-align: center;">
                 <button on:click=move |_| on_edit()>Edit input</button>
             </div>
@@ -57,14 +59,22 @@ fn App() -> impl IntoView {
         // <Output text=input.get() on_edit=move||set_phase.set(Phase::Topology)/>
 
         {move || match phase.get() {
-            Phase::Topology => view! {
-                <Input on_render=move |s|{set_input.set(s.to_string()); set_phase.set(Phase::Visualization);}/>
-            }.into_any(),
-            Phase::Visualization => view! {
-                <Output topology=input.get() on_edit=move||set_phase.set(Phase::Topology)/>
-            }.into_any(),
+            Phase::Topology => {
+                view! {
+                    <Input on_render=move |s| {
+                        set_input.set(s.to_string());
+                        set_phase.set(Phase::Visualization);
+                    } />
+                }
+                    .into_any()
+            }
+            Phase::Visualization => {
+                view! {
+                    <Output topology=input.get() on_edit=move || set_phase.set(Phase::Topology) />
+                }
+                    .into_any()
+            }
         }}
-
     }
 }
 
@@ -76,8 +86,6 @@ pub fn main() {
 
     let (read_output, write_output) = signal(String::new());
     mount_to_body(move || {
-        view! {
-            <App/>
-        }
+        view! { <App /> }
     })
 }
