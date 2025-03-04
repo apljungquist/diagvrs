@@ -9,45 +9,30 @@ fn render(dot: &str) -> String {
 
 #[component]
 fn Input(on_render: impl Fn(&str) + 'static +Sync+ Send) -> impl IntoView {
-    let (read_input, write_input) = signal(SAMPLE.to_string());
+    let input = RwSignal::new(SAMPLE.to_string());
+    // let (read_input, write_input) = signal(SAMPLE.to_string());
 
     let value = RwSignal::new("deg".to_string());
     view! {
-        // <div style="display: flex; flex-direction: column; height: 100%;">
-        <Flex vertical=true>
-            <Field label="Topology:" name="textarea">
+        <Flex style="height: 100vh;" vertical=true>
+            // <Field label="Topology:" name="textarea" class="fill-vertical">
                 <Textarea
+                    class="fill-vertical"
                     rules=vec![TextareaRule::required(true.into())]
-                    // value={move || read_input.get()}
-                    // value=move || read_input.get()
-                    // value=read_input.get()
-                    value=read_input
-                    on_focus=move |_| log::info!("focus")
-                    on_blur=move |_| {
-            log::info!("blur")
-                // write_input.set("hello".to_string());
-
-        }
-                    on:input=move |ev: Event| log::info!("input: {:?}", ev)
+                    value=input
                 />
-            </Field>
-            // <textarea
-            // prop:value=read_input
-            // on:input:target=move |ev| write_input.set(ev.target().value())
-            // style="flex: 1; width: 100%; overflow: scroll; font-family: monospace;"
-            // ></textarea>
-            // <div style="padding: 0.5em; text-align: center;">
-            <Flex>
-                <Field label="Order:" name="radio">
+            // </Field>
+            <Flex justify=FlexJustify::SpaceAround style="padding: 1em">
+                // <Field label="Order:" name="radio" orientation=FieldOrientation::Horizontal>
                     <RadioGroup value>
                         <Radio value="alp" label="Alphabetical" />
                         <Radio value="deg" label="Degree" />
                         <Radio value="dep" label="Depth" />
                     </RadioGroup>
-                </Field>
+                // </Field>
                 <Button
                     appearance=ButtonAppearance::Primary
-                    on_click=move |_| on_render(&read_input.get())
+                    on_click=move |_| on_render(&input.get())
                 >
                     Render
                 </Button>
