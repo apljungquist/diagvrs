@@ -1,0 +1,8 @@
+.fill-vertical, .thaw-textarea__textarea {
+    height: 100%;
+    max-height: none;
+}
+
+body {
+    margin: 0;
+}
