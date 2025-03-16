@@ -1,8 +1,12 @@
 #![allow(clippy::if_same_then_else)]
-use crate::{NormNode, NormTree};
+use crate::core::Graph;
 use std::collections::HashMap;
 use std::fmt::{Debug, Display};
 use std::hash::Hash;
+use anyhow::bail;
+
+type NormNode = usize;
+type NormTree = HashMap<NormNode, Vec<NormNode>>;
 
 fn normalized<T: Eq + Hash + Debug>(tree: &HashMap<T, Vec<T>>, order: &[T]) -> NormTree {
     let mut lut = HashMap::new();
@@ -96,16 +100,31 @@ static JUNCTION: &str = "+";
 static VERTICAL: &str = "|";
 static HORIZONTAL: &str = "-";
 
-pub fn formatted<T: Eq + Hash + Display + Debug>(
-    tree: &HashMap<T, Vec<T>>,
-    order: &Vec<T>,
-) -> String {
+impl<T> Graph<T>
+where
+    T: Eq + Hash + Display + Debug,
+{
+    pub fn ascii(&self) -> anyhow::Result<String> {
+        self.ascii_with_order(&self.nodes())
+    }
+
+    pub fn ascii_with_order(&self, order: &Vec<&T>) -> anyhow::Result<String> {
+        let tree = self
+            .heads()
+            .into_iter()
+            .map(|(k, v)| (k, v.into_iter().collect()))
+            .collect();
+        formatted(&tree, order)
+    }
+}
+
+fn formatted<T: Eq + Hash + Display + Debug>(tree: &HashMap<T, Vec<T>>, order: &Vec<T>) -> anyhow::Result<String> {
     let n = order.len();
 
     let mut names: Vec<String> = Vec::with_capacity(n);
     for node in order {
         if tree[node].contains(node) {
-            panic!("not implemented")
+            bail!("Omitting self loop")
         }
 
         let name = format!("{}", node);
@@ -251,5 +270,5 @@ pub fn formatted<T: Eq + Hash + Display + Debug>(
             result.push_str(rr);
         }
     }
-    result
+    Ok(result)
 }

@@ -4,6 +4,8 @@ version = "0.1.0"
 edition = "2018"
 
 [dependencies]
+anyhow = "1.0.97"
+dot-parser = "0.3.3"
 itertools = "0.14.0"
 
 [workspace]

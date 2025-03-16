@@ -1,9 +1,9 @@
-use diagv::generators;
+use diagv::{generators, Graph};
 use leptos::prelude::RwSignal;
 use leptos::prelude::*;
 use leptos::{component, view, IntoView};
-use std::collections::HashMap;
 use std::fmt::Display;
+use std::hash::Hash;
 use thaw::*;
 
 static DIAGV_INPUT: &str = r#"digraph {
@@ -15,10 +15,10 @@ static DIAGV_INPUT: &str = r#"digraph {
 }
 "#;
 
-fn fmt_dot<N: Display>(input: HashMap<N, Vec<N>>) -> String {
+fn fmt_dot<N: Clone + Display + Eq + Hash>(input: Graph<N>) -> String {
     let mut output = String::new();
     output.push_str("digraph {\n");
-    for (tail, heads) in input.into_iter() {
+    for (tail, heads) in input.heads().into_iter() {
         for head in heads.into_iter() {
             output.push_str(&format!("  \"{tail}\" -> \"{head}\";\n"));
         }
@@ -34,8 +34,8 @@ pub fn InputPage(
     let on_select = move |key: String| {
         let dot = match key.as_str() {
             "diagv" => DIAGV_INPUT.to_string(),
-            "Cycle(9)" => fmt_dot(generators::cycle(9).unwrap()),
-            "Sonic(3)" => fmt_dot(generators::sonic(3).unwrap()),
+            "Cycle(9)" => fmt_dot(generators::cycle(9)),
+            "Sonic(3)" => fmt_dot(generators::sonic(3)),
             v => unreachable!("{v}"),
         };
         topology.set(dot);

@@ -15,8 +15,8 @@ enum Phase {
 }
 #[component]
 pub fn App() -> impl IntoView {
-    let topology = RwSignal::new(include_str!("../../deps.dot").to_string());
-    let (phase, set_phase) = signal(Phase::Order);
+    let topology = RwSignal::new(String::new());
+    let (phase, set_phase) = signal(Phase::Topology);
 
     view! {
         <ConfigProvider>
