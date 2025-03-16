@@ -1,65 +1,52 @@
-use crate::NormTree;
-use std::collections::HashMap;
-macro_rules! map (
-    { $($key:expr => $value:expr),+ $(,)? } => {
-        {
-            let mut result = HashMap::new();
-            $(
-                result.insert($key, $value);
-            )+
-            result
-        }
-     };
-);
+use crate::core::Graph;
 
-pub fn diagv() -> NormTree {
-    map! {
-        0 => vec![2],
-        1 => vec![2, 3],
-        2 => vec![4],
-        3 => vec![4]
-    }
+macro_rules! graph {
+    [$($key:expr => [$($value:expr),* $(,)?]),+ $(,)?] => {Graph::from_edges(vec![$($(($key, $value),)*)+])}
 }
 
-pub fn cyclic() -> NormTree {
-    map! {
-        0 => vec![1,4],
-        1 => vec![],
-        2 => vec![6],
-        3 => vec![4],
-        4 => vec![8],
-        5 => vec![4],
-        6 => vec![0],
-        7 => vec![],
-        8 => vec![2,7]
-    }
+pub fn diagv() -> Graph<char> {
+    graph![
+        'd' => ['a'],
+        'i' => ['a', 'g'],
+        'a' => ['v'],
+        'g' => ['v']
+    ]
 }
 
-pub fn cycle(n: usize) -> Result<NormTree, &'static str> {
-    if n < 1 {
-        return Err("Implemented only for 0<n");
-    }
-    let mut result = HashMap::new();
+pub fn cyclic() -> Graph<i32> {
+    graph![
+        0 => [1,4],
+        1 => [],
+        2 => [6],
+        3 => [4],
+        4 => [8],
+        5 => [4],
+        6 => [0],
+        7 => [],
+        8 => [2,7],
+    ]
+}
+
+pub fn cycle(n: usize) -> Graph<usize> {
+    assert!(0 < n, "Implemented only for 0<n");
+    let mut edges = Vec::new();
     for i in 0..n - 1 {
-        result.insert(i, vec![i + 1]);
+        edges.push((i, i + 1));
     }
-    result.insert(n - 1, vec![0]);
-    Ok(result)
+    edges.push((n - 1, 0));
+    Graph::from_edges(edges)
 }
 
-pub fn sonic(n: usize) -> Result<HashMap<String, Vec<String>>, &'static str> {
-    if !(1..=9).contains(&n) {
-        return Err("Implemented only for 0<n<10");
-    }
-    let origin = String::from("x1");
-    let mut result = HashMap::new();
-    result.insert(origin.clone(), vec![]);
+pub fn sonic(n: usize) -> Graph<String> {
+    assert!((1..=9).contains(&n), "Implemented only for 0<n<10");
+    let origin = "x1";
+    let mut edges = Vec::new();
     for i in 2..n + 1 {
-        result.get_mut(&origin).unwrap().push(format!("{}2", i));
+        edges.push((origin.to_string(), format!("{}2", i)));
         for j in 2..i {
-            result.insert(format!("{}{}", i, j), vec![format!("{}{}", i, j + 1)]);
+            edges.push((format!("{}{}", i, j), format!("{}{}", i, j + 1)))
         }
-        result.insert(format!("{}{}", i, i), vec![origin.clone()]);
+        edges.push((format!("{}{}", i, i), origin.to_string()));
     }
-    Ok(result)
+    Graph::from_edges(edges)
 }

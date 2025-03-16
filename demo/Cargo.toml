@@ -9,9 +9,9 @@ codegen-units = 1
 lto = true
 
 [dependencies]
+anyhow = "1.0.97"
 console_error_panic_hook = "0.1.7"
 console_log = "1.0"
-dot-parser = "0.3.3"
 icondata_mdi = "0.0.10"
 leptos = { version = "0.7.7", features = ["csr"] }
 log = "0.4.26"

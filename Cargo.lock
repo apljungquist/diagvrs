@@ -338,6 +338,8 @@ dependencies = [
 name = "diagv"
 version = "0.1.0"
 dependencies = [
+ "anyhow",
+ "dot-parser",
  "itertools 0.14.0",
 ]
 
@@ -345,10 +347,10 @@ dependencies = [
 name = "diagv-demo"
 version = "0.1.0"
 dependencies = [
+ "anyhow",
  "console_error_panic_hook",
  "console_log",
  "diagv",
- "dot-parser",
  "icondata_mdi",
  "leptos",
  "log",
