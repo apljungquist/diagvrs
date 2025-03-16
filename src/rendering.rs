@@ -90,9 +90,10 @@ fn left_is_dsucc_of_row(tree: &NormTree, row: NormNode, col: NormNode) -> bool {
     false
 }
 
-static MAX_COL_WIDTH: usize = 10;
-static PADDINGS: &str = "          ";
-static HORIZONTALS: &str = "----------";
+static MAX_COL_WIDTH: usize = 50;
+
+static PADDINGS: &str = "                                                  ";
+static HORIZONTALS: &str = "--------------------------------------------------";
 
 static NOTHING: &str = "";
 static PADDING: &str = " ";
@@ -127,10 +128,7 @@ fn formatted<T: Eq + Hash + Display + Debug>(tree: &HashMap<T, Vec<T>>, order: &
             bail!("Omitting self loop")
         }
 
-        let name = format!("{}", node);
-        if name.len() > MAX_COL_WIDTH {
-            panic!("not implemented")
-        }
+        let name = format!("{}", node).chars().take(MAX_COL_WIDTH).collect();
         names.push(name);
     }
     let names = names;
