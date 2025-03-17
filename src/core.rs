@@ -35,26 +35,61 @@ where
         }
     }
 
-    pub(crate) fn from_edges(edges: Vec<(T, T)>) -> Self {
-        let mut normalized_nodes = HashMap::new();
-        let mut normalized_heads: HashMap<usize, HashSet<usize>> = HashMap::new();
+    pub(crate) fn from_heads(heads: Vec<(T, Vec<T>)>) -> Self {
+        let mut nodes = HashMap::new();
         let mut normalize = |node: T| {
-            if normalized_nodes.contains_key(&node) {
-                normalized_nodes[&node]
+            if nodes.contains_key(&node) {
+                nodes[&node]
             } else {
-                let i = normalized_nodes.len();
-                normalized_nodes.insert(node, i);
+                let i = nodes.len();
+                nodes.insert(node, i);
                 i
             }
         };
 
-        for (t, h) in edges {
+        let mut deferred: HashMap<usize, Vec<T>> = HashMap::new();
+        for (t, hs) in heads {
             let t = normalize(t);
-            let h = normalize(h);
-            normalized_heads.entry(t).or_default().insert(h);
+            deferred.entry(t).or_default().extend(hs);
         }
 
-        Self::from_normalized(normalized_nodes, normalized_heads)
+        let mut heads: HashMap<usize, HashSet<usize>> = HashMap::new();
+        for (t, hs) in deferred.into_iter().sorted_by_key(|(t, _)| *t) {
+            for h in hs {
+                let h = normalize(h);
+                heads.entry(t).or_default().insert(h);
+            }
+        }
+
+        Self::from_normalized(nodes, heads)
+    }
+    pub(crate) fn from_edges(edges: Vec<(T, T)>) -> Self {
+        let mut nodes = HashMap::new();
+        let mut normalize = |node: T| {
+            if nodes.contains_key(&node) {
+                nodes[&node]
+            } else {
+                let i = nodes.len();
+                nodes.insert(node, i);
+                i
+            }
+        };
+
+        let mut deferred: HashMap<usize, Vec<T>> = HashMap::new();
+        for (t, h) in edges {
+            let t = normalize(t);
+            deferred.entry(t).or_default().push(h);
+        }
+
+        let mut heads: HashMap<usize, HashSet<usize>> = HashMap::new();
+        for (t, hs) in deferred.into_iter().sorted_by_key(|(t, _)| *t) {
+            for h in hs {
+                let h = normalize(h);
+                heads.entry(t).or_default().insert(h);
+            }
+        }
+
+        Self::from_normalized(nodes, heads)
     }
 }
 
