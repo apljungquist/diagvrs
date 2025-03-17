@@ -2,8 +2,8 @@ use anyhow::bail;
 use diagv::Graph;
 use leptos::prelude::RwSignal;
 use leptos::prelude::*;
-use leptos::{component, view, IntoView};
 use leptos::wasm_bindgen::UnwrapThrowExt;
+use leptos::{component, view, IntoView};
 use thaw::*;
 
 enum Order {
