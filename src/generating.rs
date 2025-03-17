@@ -1,7 +1,9 @@
 use crate::core::Graph;
 
 macro_rules! graph {
-    [$($key:expr => [$($value:expr),* $(,)?]),+ $(,)?] => {Graph::from_edges(vec![$($(($key, $value),)*)+])}
+    [$($key:expr => [$($value:expr),* $(,)?]),+ $(,)?] => {
+        Graph::from_heads(vec![$(($key, vec![$($value),*])),+])
+    }
 }
 
 pub fn diagv() -> Graph<char> {

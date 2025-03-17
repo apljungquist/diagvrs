@@ -30,9 +30,7 @@ static SONIC_3_TEXT: &str = "\
 #[test]
 fn test_format_works_for_diagv() {
     let graph = generators::diagv();
-    let actual = graph
-        .ascii_with_order(&vec![&'d', &'i', &'a', &'g', &'v'])
-        .unwrap();
+    let actual = graph.ascii().unwrap();
     let expected = DIAGV_TEXT;
     assert_eq!(actual, expected);
 }
@@ -40,9 +38,7 @@ fn test_format_works_for_diagv() {
 #[test]
 fn test_format_works_for_cyclic() {
     let graph = generators::cyclic();
-    let actual = graph
-        .ascii_with_order(&vec![&0, &1, &2, &3, &4, &5, &6, &7, &8])
-        .unwrap();
+    let actual = graph.ascii().unwrap();
     let expected = CYCLIC_TEXT;
     assert_eq!(actual, expected);
 }
