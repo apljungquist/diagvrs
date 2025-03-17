@@ -1,9 +1,9 @@
 #![allow(clippy::if_same_then_else)]
 use crate::core::Graph;
+use anyhow::bail;
 use std::collections::HashMap;
 use std::fmt::{Debug, Display};
 use std::hash::Hash;
-use anyhow::bail;
 
 type NormNode = usize;
 type NormTree = HashMap<NormNode, Vec<NormNode>>;
@@ -119,7 +119,10 @@ where
     }
 }
 
-fn formatted<T: Eq + Hash + Display + Debug>(tree: &HashMap<T, Vec<T>>, order: &Vec<T>) -> anyhow::Result<String> {
+fn formatted<T: Eq + Hash + Display + Debug>(
+    tree: &HashMap<T, Vec<T>>,
+    order: &Vec<T>,
+) -> anyhow::Result<String> {
     let n = order.len();
 
     let mut names: Vec<String> = Vec::with_capacity(n);
